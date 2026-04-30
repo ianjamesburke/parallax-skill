@@ -15,8 +15,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ github.event.client_payload.version }}
+          CHANGELOG: ${{ github.event.client_payload.changelog }}
         run: |
           gh issue create \
             --repo ianjamesburke/parallax-skill \
             --title "New parallax release $VERSION — review SKILL.md" \
-            --body "parallax-v0 was just released at $VERSION. Check for new commands, changed flags, or updated behavior and update SKILL.md accordingly."
+            --body "## parallax $VERSION released
+
+Review SKILL.md for any commands, flags, or behavior that changed.
+
+## Changelog
+$CHANGELOG"
