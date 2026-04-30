@@ -36,7 +36,7 @@ One-shot: `parallax produce --folder <project> --brief brief.yaml` (plans + prod
 ```yaml
 goal: "30-second product launch"
 aspect: "9:16"          # MUST be quoted — YAML parses 9:16 as base-60 otherwise
-voice: Kore             # Gemini TTS voice
+voice: nova             # TTS voice (OpenAI: nova, shimmer, alloy, echo, fable, onyx)
 voice_speed: 1.0
 assets:
   provided:
@@ -77,6 +77,39 @@ parallax models show tts-mini          # TTS voice list
 ```
 
 Named aliases: `nano-banana`, `seedream`, `gemini-3-pro` (image); `seedance`, `kling`, `veo`, `wan`, `sora` (video).
+
+## Video generation resolution (animate_resolution)
+
+**Default behaviour:** Parallax generates video clips at **480p** and upscales them to the output `resolution:` during ffmpeg assembly. This is intentional — the quality difference is imperceptible on phones and the cost savings are significant.
+
+Seedance 2.0 Fast (the `draft` alias) pricing by generation resolution:
+
+| Resolution | $/second | 5s clip |
+|------------|----------|---------|
+| 480p (default) | $0.054 | ~$0.27 |
+| 720p | $0.121 | ~$0.60 |
+| 1080p | $0.272 | ~$1.36 |
+
+Override in `plan.yaml` or `brief.yaml`:
+```yaml
+animate_resolution: 720x1280   # generate at 720p instead of 480p
+```
+
+Per-scene override (one clip at higher quality):
+```yaml
+scenes:
+  - index: 0
+    animate_resolution: 720x1280   # this scene only
+```
+
+Aspect-aware defaults: `9:16 → 480x854`, `16:9 → 854x480`, `1:1 → 480x480`.
+
+## TTS voices
+
+Default voice: `nova`. Valid OpenAI voices for `tts-mini`:
+`alloy`, `echo`, `fable`, `onyx`, `nova`, `shimmer`, `coral`, `verse`, `ballad`, `ash`, `sage`, `marin`, `cedar`
+
+Do not use Gemini voice names (e.g. Kore, Puck) — the TTS backend is OpenAI gpt-audio-mini.
 
 ## Standalone commands
 
