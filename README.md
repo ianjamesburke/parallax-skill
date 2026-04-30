@@ -1,5 +1,9 @@
-# parallax-skill
+Claude Code skill for the [parallax CLI](https://github.com/ianjamesburke/parallax-v0).
 
-Claude Code skill for operating the [parallax CLI](https://github.com/ianjamesburke/parallax-v0) — short-form vertical video production via the brief → plan → produce loop.
+## Install
 
-Symlink `SKILL.md`'s parent dir into `~/.claude/skills/parallax` to install.
+```sh
+git clone https://github.com/ianjamesburke/parallax-skill ~/.agents/skills/parallax
+```
+
+That's it. Claude Code picks up skills from `~/.agents/skills/` automatically.
