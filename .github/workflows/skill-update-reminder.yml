@@ -4,6 +4,9 @@ on:
   repository_dispatch:
     types: [parallax-release]
 
+permissions:
+  issues: write
+
 jobs:
   open-issue:
     runs-on: ubuntu-latest
