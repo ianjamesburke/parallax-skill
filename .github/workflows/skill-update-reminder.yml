@@ -1,0 +1,19 @@
+name: Skill update reminder
+
+on:
+  repository_dispatch:
+    types: [parallax-release]
+
+jobs:
+  open-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open reminder issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ github.event.client_payload.version }}
+        run: |
+          gh issue create \
+            --repo ianjamesburke/parallax-skill \
+            --title "New parallax release $VERSION — review SKILL.md" \
+            --body "parallax-v0 was just released at $VERSION. Check for new commands, changed flags, or updated behavior and update SKILL.md accordingly."
